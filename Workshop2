@@ -1,0 +1,39 @@
+#!/bin/bash
+
+while true
+do
+    # Display the menu
+    echo "Menu:"
+    echo "a. Display the present working directory"
+    echo "b. List names of the files in a given directory"
+    echo "c. Display today's date and time"
+    echo "d. Display whether a file is a ordinary file or a directory"
+    echo "e. Execute a command line"
+    echo "f. Exit the program"
+
+    # Prompt for user input
+    read -p "Enter your choice (a-f): " choice
+
+    # Process user input
+    case $choice in
+        a) pwd ;;
+        b) read -p "Enter the path to the directory: " directory_path
+           ls $directory_path ;;
+        c) date ;;
+        d) read -p "Enter the path to the file or directory: " file_path
+           if [ -f $file_path ]; then
+               echo "$file_path is a regular file"
+           elif [ -d $file_path ]; then
+               echo "$file_path is a directory"
+           else
+               echo "$file_path is not a regular file or directory"
+           fi ;;
+        e) read -p "Enter the command to execute: " command
+           eval $command ;;
+        f) echo "Exiting program..."
+           exit 0 ;;
+        *) echo "Invalid choice. Please choose a-f." ;;
+    esac
+
+    echo "--------------------------------------"
+done
